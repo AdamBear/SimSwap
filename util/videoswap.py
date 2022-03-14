@@ -40,7 +40,9 @@ def video_swap(video_path, id_vetor, swap_model, detect_model, save_path, temp_r
         video_audio_clip = AudioFileClip(video_path)
 
     video = cv2.VideoCapture(video_path)
-    logoclass = watermark_image('./simswaplogo/simswaplogo.png')
+    if not no_simswaplogo:
+        logoclass = watermark_image('./simswaplogo/simswaplogo.png')
+
     ret = True
     frame_index = 0
 

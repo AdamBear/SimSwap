@@ -34,6 +34,7 @@ def _totensor(array):
     tensor = torch.from_numpy(array)
     img = tensor.transpose(0, 1).transpose(0, 2).contiguous()
     return img.float().div(255)
+
 if __name__ == '__main__':
     opt = TestOptions().parse()
 
