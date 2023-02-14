@@ -143,8 +143,6 @@ def reverse2wholeimage(b_align_crop_tenor_list,swaped_imgs, mats, crop_size, ori
         # kernel = np.ones((10,10),np.uint8)
         # img_mask = cv2.erode(img_mask,kernel,iterations = 1)
 
-
-
         img_mask /= 255
 
         img_mask = np.reshape(img_mask, [img_mask.shape[0],img_mask.shape[1],1])

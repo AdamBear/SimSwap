@@ -27,7 +27,7 @@ def _totensor(array):
     img = tensor.transpose(0, 1).transpose(0, 2).contiguous()
     return img.float().div(255)
 
-def video_swap(video_path, id_vetor, swap_model, detect_model, save_path, temp_results_dir='./temp_results', crop_size=224, no_simswaplogo = False,use_mask =False):
+def video_swap(video_path, id_vetor, swap_model, detect_model, save_path, temp_results_dir='./temp_results', crop_size=224, no_simswaplogo = False,use_mask =False, mask_parsing_model=None):
     video_forcheck = VideoFileClip(video_path)
     if video_forcheck.audio is None:
         no_audio = True
@@ -40,6 +40,8 @@ def video_swap(video_path, id_vetor, swap_model, detect_model, save_path, temp_r
         video_audio_clip = AudioFileClip(video_path)
 
     video = cv2.VideoCapture(video_path)
+    logoclass = None
+
     if not no_simswaplogo:
         logoclass = watermark_image('./simswaplogo/simswaplogo.png')
 
@@ -58,12 +60,13 @@ def video_swap(video_path, id_vetor, swap_model, detect_model, save_path, temp_r
 
     spNorm =SpecificNorm()
     if use_mask:
-        n_classes = 19
-        net = BiSeNet(n_classes=n_classes)
-        net.cuda()
-        save_pth = os.path.join('./parsing_model/checkpoint', '79999_iter.pth')
-        net.load_state_dict(torch.load(save_pth))
-        net.eval()
+        # n_classes = 19
+        # net = BiSeNet(n_classes=n_classes)
+        # net.cuda()
+        # save_pth = os.path.join('./parsing_model/checkpoint', '79999_iter.pth')
+        # net.load_state_dict(torch.load(save_pth))
+        # net.eval()
+        net = mask_parsing_model
     else:
         net =None
 
