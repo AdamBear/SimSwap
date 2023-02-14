@@ -7,6 +7,7 @@ class BaseOptions():
     def __init__(self):
         self.parser = argparse.ArgumentParser()
         self.initialized = False
+        self.isTrain = False
 
     def initialize(self):
         # experiment specifics
